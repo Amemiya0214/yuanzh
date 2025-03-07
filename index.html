@@ -60,7 +60,7 @@
 			<td>月费</td>
 			<td>50G/月</td>
 			<td>无</td>
-			<td>https://0b96e976-9ec3-44c0-aa2b-30bf8b0792ea.com/api/v1/client/subscribe?token=b20d5f5611321b9d14f1d1a7d3eef51f<td>
+			<td>https://0b96e976-9ec3-44c0-aa2b-30bf8b0792ea.com/api/v1/client/subscribe?token=b20d5f5611321b9d14f1d1a7d3eef51f<td>  
         </tr>
 		<tr>
             <td>备用</td>
@@ -99,6 +99,65 @@
 			<td>无<td>
         </tr>
     </table>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>复制内容示例</title>
+    <style>
+        /* 简单样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #content {
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- 需要复制的内容 -->
+    <p id="content">这是需要复制的内容。</p>
+
+    <!-- 复制按钮 -->
+    <button onclick="copyToClipboard()">复制内容</button>
+
+    <script>
+        // 复制函数
+        function copyToClipboard() {
+            // 获取需要复制的内容
+            const content = document.getElementById("content").innerText;
+
+            // 使用 Clipboard API 复制内容
+            navigator.clipboard.writeText(content)
+                .then(() => {
+                    // 复制成功，弹窗提醒
+                    alert("内容已复制: " + content);
+                })
+                .catch((err) => {
+                    // 复制失败，提示错误
+                    alert("复制失败，请手动复制。");
+                    console.error("复制失败: ", err);
+                });
+        }
+    </script>
 </body>
 </html>
 
