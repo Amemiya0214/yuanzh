@@ -9,13 +9,15 @@
 	<div class="bg-img"></div>
 	<header>欢迎来到羽恩的引导站(∠・ω< )⌒☆(bushi)</header>
 	<main>
-		<h1>Hello, World!<br>手机请缩小食用</h1>
+		<h1>Hello, World!</h1>
 		<p>这是由网页托管创建的默认页面o(*￣▽￣*)o</p>
 		<p>今天是斯卡蒂的生日，转发这条消息到3个群里，下次去海边就能看见蒂蒂在水里游泳，我试过了是假的，但是今天真的是蒂蒂的生日，祝蒂蒂生日快乐！</p>
 	</main>
 </body>
 </html>
 <p>最后更新：3.7
+
+
 
 
 <!DOCTYPE html>
@@ -25,12 +27,12 @@
     <title>自定义列宽</title>
     <style>
         table {
-			width: 100%;
+			width: 20%;
             border-collapse: collapse;
         }
         th, td {
-            border: 4px solid #000;
-            padding: 8px;
+            border: 3px solid #EFEFEF;
+            padding: 7px;
             text-align: center;
         }
         .col-1 { width: 10%; }
@@ -51,16 +53,14 @@
 			<th class="col-4">订阅制</th>
 			<th class="col-5">流量</th>
 			<th class="col-6">内核兼容性/备注</th>
-			<th class="col-7">订阅链接</th>
         </tr>
         <tr>
             <td>备用</td>
             <td>sakuracat</td>
-            <td>25.4.5</td>
+            <td>4.5</td>
 			<td>月费</td>
 			<td>50G/月</td>
 			<td>无</td>
-			<td>https://0b96e976-9ec3-44c0-aa2b-30bf8b0792ea.com/api/v1/client/subscribe?token=b20d5f5611321b9d14f1d1a7d3eef51f<td>  
         </tr>
 		<tr>
             <td>备用</td>
@@ -69,7 +69,6 @@
 			<td>月费</td>
 			<td>50G/月</td>
 			<td>不支持surfboard</td>
-			<td>https://app.mitce.com/?sid=226036&token=67e5b1f674e571306f99<td>
         </tr>
 		<tr>
             <td>弃用</td>
@@ -78,7 +77,6 @@
 			<td>年费</td>
 			<td>50G/月</td>
 			<td>无</td>
-			<td>http://sub.sub.sub.subsub123456789.com/answer/land?token=36e8a9b7d081c22d950c2a5f9cd241e0<td>
         </tr>
 		<tr>
             <td>延后开放</td>
@@ -87,72 +85,74 @@
 			<td>固定流量</td>
 			<td>100G</td>
 			<td>无</td>
-			<td>延后开放<td>
         </tr>
 		<tr>
             <td>停用</td>
             <td>山水</td>
             <td>停用</td>
 			<td>停用</td>
-			<td>停用</td>  
+			<td>停用</td>
 			<td>无</td>
-			<td>无<td>
         </tr>
     </table>
 </body>
 </html>
+
+
+
 
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>复制内容示例</title>
+    <title>复制多个内容</title>
     <style>
-        /* 简单样式 */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        #content {
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-        }
         button {
-            margin-top: 10px;
+            margin: 10px;
             padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
+            font-size: 16px;
             cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
         }
     </style>
 </head>
+
+
 <body>
-    
-    <p id="content">66666666666666666。</p>
+    <!-- 需要复制的内容 -->
+    <p id="content1" style="display: none;">https://0b96e976-9ec3-44c0-aa2b-30bf8b0792ea.com/api/v1/client/subscribe?token=b20d5f5611321b9d14f1d1a7d3eef51f</p>
+    <p id="content2" style="display: none;">https://app.mitce.com/?sid=226036&token=67e5b1f674e571306f99</p>
+    <p id="content3" style="display: none;">http://sub.sub.sub.subsub123456789.com/answer/land?token=36e8a9b7d081c22d950c2a5f9cd241e0</p>
 
     <!-- 复制按钮 -->
-    <button onclick="copyToClipboard()">复制内容</button>
+<main>
+	<p style="font-size: 24px; font-weight: bold;">sakuracat的链接：</p>
+	</main>
+    <button onclick="copyToClipboard('content1')">复制链接</button>
+
+<main>
+	<p style="font-size: 24px; font-weight: bold;">mitce的链接：</p>
+	</main>      
+    <button onclick="copyToClipboard('content2')">复制链接</button>
+
+<main>
+	<p style="font-size: 24px; font-weight: bold;">FSCloud的链接：</p>
+	</main>
+	</main>
+    <button onclick="copyToClipboard('content3')">复制链接</button>
 
     <script>
-        // 复制函数
-        function copyToClipboard() {
-            // 获取需要复制的内容
-            const content = document.getElementById("content").innerText;
+        // 通用的复制函数
+        function copyToClipboard(contentId) {
+            // 根据传入的 id 获取内容
+            const content = document.getElementById(contentId).innerText;
 
             // 使用 Clipboard API 复制内容
             navigator.clipboard.writeText(content)
                 .then(() => {
-                    // 复制成功，弹窗提醒
                     alert("内容已复制: " + content);
                 })
                 .catch((err) => {
-                    // 复制失败，提示错误
                     alert("复制失败，请手动复制。");
                     console.error("复制失败: ", err);
                 });
@@ -160,6 +160,9 @@
     </script>
 </body>
 </html>
+
+
+
 
 <pre>//请在复制链接后检查是否有换行和空格；
 有写订阅链接即是能用，没写链接就是寄：
@@ -169,4 +172,56 @@
 订阅失效找我续订
 
 //英语缩写节点地区参考
-  HK香港   SG新加坡   US美   JP日本   DE德国   GB英国   TW台
+  HK香港   SG新加坡   US美   JP日本
+DE德国   GB英国   TW台
+
+
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Design Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+        .header, .footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .main {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .column {
+            flex: 1;
+            padding: 10px;
+        }
+        @media (max-width: 767px) {
+            .column {
+                flex: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Header</div>
+        <div class="main">
+            <div class="column" style="background-color:#aaa;">Column 1</div>
+            <div class="column" style="background-color:#bbb;">Column 2</div>
+            <div class="column" style="background-color:#ccc;">Column 3</div>
+        </div>
+        <div class="footer">Footer</div>
+    </div>
+</body>
+</html>
+ 
