@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<title>羽恩的引导站</title>
+	<link rel="stylesheet" href="template">
+</head>
+<body>
+	<div class="bg-img"></div>
+	<header>欢迎来到羽恩的引导站(∠・ω< )</header>
+	<main>
+		<h1>Hello, World!</h1>
+		<p>这是网页托管的默认页面o(*￣▽￣*)o</p>
+		<p>最后更新：3.7</p>
+	</main>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义列宽</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 2px solid white;
+            padding: 7px;
+            text-align: center;
+        }
+        .col-1 { width: 10%; }
+        .col-2 { width: 8%; }
+        .col-3 { width: 8%; }
+        .col-4 { width: 10%; }
+        .col-5 { width: 10%; }
+        .col-6 { width: 15%; }
+        .col-7 { width: 100%; }
+
+        @media screen and (max-width: 600px) {
+            /* 隐藏表头 */
+            thead {
+                display: none;
+            }
+
+            table, tbody, th, td, tr {
+                display: block;
+            }
+            tr {
+                display: flex;
+                flex-direction: column;
+                border: 2px solid #ccc;
+                margin-bottom: 10px;
+            }
+            td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+            }
+            td:before {
+                position: absolute;
+                top: 6px;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                content: attr(data-label);
+            }
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th class="col-1">状态</th>
+                <th class="col-2">名称</th>
+                <th class="col-3">到期</th>
+                <th class="col-4">订阅制</th>
+                <th class="col-5">流量</th>
+                <th class="col-6">限速</th>
+				<th class="col-6">设备上限</th>
+				<th class="col-6">内核兼容性/备注</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-label="状态">主要</td>
+                <td data-label="名称">mitce</td>
+                <td data-label="到期">3.14</td>
+                <td data-label="订阅制">月费</td>
+                <td data-label="流量">50G/月</td>
+				<td data-label="限速">∞</td>
+				<td data-label="设备上限">5</td>
+                <td data-label="内核兼容性/备注">不支持surfboard</td>
+            </tr>
+            <tr>
+                <td data-label="状态">弃用</td>
+                <td data-label="名称">FSCloud</td>
+                <td data-label="到期">6.11</td>
+                <td data-label="订阅制">年费</td>
+                <td data-label="流量">50G/月</td>
+				<td data-label="限速">∞</td>
+				<td data-label="设备上限">未知</td>
+                <td data-label="内核兼容性/备注">无</td>
+            </tr>
+            <tr>
+                <td data-label="状态">应急</td>
+                <td data-label="名称">Ciallo～</td>
+                <td data-label="到期">26.3.4</td>
+                <td data-label="订阅制">固定流量</td>
+                <td data-label="流量">100G</td>
+				<td data-label="限速">未知</td>
+				<td data-label="设备上限">未知</td>
+                <td data-label="内核兼容性/备注">无</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>复制多个内容</title>
+    <style>
+        /* 设置全局样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 设置每个项目的容器样式 */
+        .item {
+            display: flex;
+            justify-content: space-between; /* 文字置左，按钮置右 */
+            align-items: center; /* 垂直居中 */
+            background-color: transparent; /* 背景透明 */
+            padding: 5px; /* 内边距 */
+            margin: 10px 0; /* 外边距 */
+            border-radius: 0px; /* 圆角 */
+            box-shadow: inset 0 0 0 2px white; /* 白色内边框 */
+			height: 50px; /* 自定义容器高度 */
+        }
+
+        /* 设置文字样式 */
+        .item p {
+            margin: 0; /* 移除默认的外边距 */
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* 设置按钮样式 */
+        .item button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #efefef; /* 按钮背景色 */
+            color: black; /* 按钮文字颜色 */
+            border: none; /* 移除按钮边框 */
+            border-radius: 0px; /* 圆角 */
+        }
+
+        .item button:hover {
+            background-color: #A8A8A8; /* 按钮悬停时的背景色 */
+        }
+
+        /* 隐藏需要复制的内容 */
+        [id^="content"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 需要复制的内容 -->
+    <p id="content1">https://app.mitce.com/?sid=247376&token=srvwjhup</p>
+    <p id="content2">http://sub.sub.sub.subsub123456789.com/answer/land?token=36e8a9b7d081c22d950c2a5f9cd241e0</p>
+    <p id="content3">https://excellent.congyusub.top/sub/8c6271a5ec37f2a8</p>
+
+    <!-- 每个项目的容器 -->
+    <div class="item">
+        <p>mitce的链接：</p>
+        <button onclick="copyToClipboard('content1')">复制链接</button>
+    </div>
+
+    <div class="item">
+        <p>FSCloud的链接</p>
+        <button onclick="copyToClipboard('content2')">复制链接</button>
+    </div>
+
+    <div class="item">
+        <p>ciallo的链接</p>
+        <button onclick="copyToClipboard('content3')">未启用</button>
+    </div>
+
+    <script>
+        // 通用的复制函数
+        function copyToClipboard(contentId) {
+            // 根据传入的 id 获取内容
+            const content = document.getElementById(contentId).innerText;
+
+            // 使用 Clipboard API 复制内容
+            navigator.clipboard.writeText(content)
+                .then(() => {
+                    alert("内容已复制: " + content);
+                })
+                .catch((err) => {
+                    alert("复制失败，请手动复制。");
+                    console.error("复制失败: ", err);
+                });
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>缩小文本间距</title>
+    <style>
+        /* 调整 <p> 标签的外边距和行高 */
+        p {
+            margin: 5px 0; /* 上下外边距为 5px，左右外边距为 0 */
+            line-height: 1.2; /* 行高为字体大小的 1.2 倍 */
+        }
+    </style>
+</head>
+<body>
+    <br> <p>// 有复制按钮即是能用，没写了就是寄：</p>
+    <p>按照使用频率设置自动更新，或用前更新；</p>
+    <p>善用测速选择节点；</p>
+    <p>电脑若不关闭代理直接关闭软件可能导致IE代理异常连不上网;</p>
+    <p>订阅失效找我续订</p> <br>
+    <p>// 英语缩写节点地区参考</p>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>带颜色的文字容器</title>
+    <style>
+        /* 设置全局样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: ; /* 页面背景色 */
+            color: white; /* 文字颜色 */
+        }
+
+        /* 设置容器样式 */
+        .text-container {
+            background-color: #efefef; /* 容器背景色 */
+            color: black; /* 文字颜色 */
+            padding: 6px 9px; /* 内边距（上下 8px，左右 12px） */
+            margin: 2px 5px; /* 外边距 */
+            border-radius: 0px; /* 圆角 */
+            display: inline-block; /* 使容器宽度自适应文本 */
+            font-size: 16px; /* 文字大小 */
+        }
+    </style>
+</head>
+<body>
+    <div class="text-container">HK香港</div><div class="text-container">SG新加坡</div><div class="text-container">US美国</div><div class="text-container">JP日本</div><div class="text-container">DE德国</div><div class="text-container">GB英国</div><div class="text-container">TW台</div>
+</body>
+</html>
