@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -287,69 +285,12 @@
         }
     </style>
 </head>
-
-
-
-
-/* 基础样式 - 确保全屏显示 */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    position: relative;
-    min-height: 100vh;
-    overflow: hidden;
-}
-
-/* 背景模糊效果容器 */
-body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    
-    /* 背景图设置 */
-    background-image: url('90573246_p0.jpg');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    
-    /* 模糊效果设置 */
-    filter: blur(8px);
-    transform: scale(1.02); /* 消除模糊后的边缘透明现象 */
-    
-    /* 提升模糊效果表现 */
-    backface-visibility: hidden;
-    image-rendering: -webkit-optimize-contrast;
-}
-
-/* 移动端优化 */
-@media (max-width: 768px) and (orientation: portrait) {
-    body::before {
-        background-size: auto 100%; /* 保持图片高度适配 */
-        background-position: 50% 50%;
-        
-        /* 加强移动端模糊效果 */
-        filter: blur(10px);
-        transform: scale(1.1);
-    }
-}
-
-/* 内容容器 - 确保内容在模糊层之上 */
-.content {
-    position: relative;
-    z-index: 1;
-    background: rgba(255, 255, 255, 0.8); /* 半透明遮罩提升可读性 */
-    min-height: 100vh;
-}
 <body>
     <div class="text-container">HK香港</div><div class="text-container">SG新加坡</div><div class="text-container">US美国</div><div class="text-container">JP日本</div><div class="text-container">DE德国</div><div class="text-container">GB英国</div><div class="text-container">TW台</div>
 </body>
 </html>
+
+
+
+
 
