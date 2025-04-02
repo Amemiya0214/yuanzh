@@ -11,29 +11,11 @@
 	<main>
 		<h1>Hello, World!</h1>
 		<p>这是网页托管的默认页面o(*￣▽￣*)o</p>
-		<p>最后更新：3.7</p>
+		<p>最后更新：4.2</p>
 	</main>
 </body>
 </html>
 
-
-
-
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>深蓝色背景网页</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #000E51; /* 深蓝色 */
-            color: white; /* 文字颜色设置为白色，以便在深蓝色背景上清晰可见 */
-        }
-    </style>
-</html>
 
 
 
@@ -103,48 +85,40 @@
                 <th class="col-3">到期</th>
                 <th class="col-4">订阅制</th>
                 <th class="col-5">流量</th>
-                <th class="col-6">内核兼容性/备注</th>
+                <th class="col-6">限速</th>
+				<th class="col-6">设备上限</th>
+				<th class="col-6">内核兼容性/备注</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td data-label="状态">备用</td>
-                <td data-label="名称">sakuracat</td>
-                <td data-label="到期">4.5</td>
-                <td data-label="订阅制">月费</td>
-                <td data-label="流量">50G/月</td>
-                <td data-label="内核兼容性/备注">无</td>
-            </tr>
-            <tr>
-                <td data-label="状态">备用</td>
+                <td data-label="状态">主要</td>
                 <td data-label="名称">mitce</td>
-                <td data-label="到期">4.5</td>
+                <td data-label="到期">25.7.1</td>
                 <td data-label="订阅制">月费</td>
                 <td data-label="流量">50G/月</td>
+				<td data-label="限速">∞</td>
+				<td data-label="设备上限">5</td>
                 <td data-label="内核兼容性/备注">不支持surfboard</td>
             </tr>
             <tr>
                 <td data-label="状态">弃用</td>
                 <td data-label="名称">FSCloud</td>
-                <td data-label="到期">6.11</td>
+                <td data-label="到期">25.6.11</td>
                 <td data-label="订阅制">年费</td>
                 <td data-label="流量">50G/月</td>
+				<td data-label="限速">∞</td>
+				<td data-label="设备上限">未知</td>
                 <td data-label="内核兼容性/备注">无</td>
             </tr>
             <tr>
-                <td data-label="状态">延后开放</td>
-                <td data-label="名称">Ciallo～</td>
+                <td data-label="状态">应急</td>
+                <td data-label="名称">丛雨云～</td>
                 <td data-label="到期">26.3.4</td>
                 <td data-label="订阅制">固定流量</td>
                 <td data-label="流量">100G</td>
-                <td data-label="内核兼容性/备注">无</td>
-            </tr>
-            <tr>
-                <td data-label="状态">停用</td>
-                <td data-label="名称">山水</td>
-                <td data-label="到期">停用</td>
-                <td data-label="订阅制">停用</td>
-                <td data-label="流量">停用</td>
+				<td data-label="限速">未知</td>
+				<td data-label="设备上限">未知</td>
                 <td data-label="内核兼容性/备注">无</td>
             </tr>
         </tbody>
@@ -212,24 +186,24 @@
 </head>
 <body>
     <!-- 需要复制的内容 -->
-    <p id="content1">https://0b96e976-9ec3-44c0-aa2b-30bf8b0792ea.com/api/v1/client/subscribe?token=b20d5f5611321b9d14f1d1a7d3eef51f</p>
-    <p id="content2">https://app.mitce.com/?sid=226036&token=67e5b1f674e571306f99</p>
-    <p id="content3">http://sub.sub.sub.subsub123456789.com/answer/land?token=36e8a9b7d081c22d950c2a5f9cd241e0</p>
+    <p id="content1">https://app.mitce.com/?sid=247376&token=srvwjhup</p>
+    <p id="content2">http://sub.sub.sub.subsub123456789.com/answer/land?token=36e8a9b7d081c22d950c2a5f9cd241e0</p>
+    <p id="content3">https://excellent.congyusub.top/sub/8c6271a5ec37f2a8</p>
 
     <!-- 每个项目的容器 -->
     <div class="item">
-        <p>sakuracat的链接：</p>
+        <p>mitce的链接：</p>
         <button onclick="copyToClipboard('content1')">复制链接</button>
     </div>
 
     <div class="item">
-        <p>mitce的链接：</p>
+        <p>FSCloud的链接</p>
         <button onclick="copyToClipboard('content2')">复制链接</button>
     </div>
 
     <div class="item">
-        <p>FSCloud的链接：</p>
-        <button onclick="copyToClipboard('content3')">复制链接</button>
+        <p>丛雨云的链接</p>
+        <button onclick="copyToClipboard('content3')">未启用</button>
     </div>
 
     <script>
@@ -255,6 +229,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -274,7 +249,7 @@
     <p>按照使用频率设置自动更新，或用前更新；</p>
     <p>善用测速选择节点；</p>
     <p>电脑若不关闭代理直接关闭软件可能导致IE代理异常连不上网;</p>
-    <p>订阅失效找我续订</p> <br>
+    <p>订阅过期找我续订</p> <br>
     <p>// 英语缩写节点地区参考</p>
 </body>
 </html>
