@@ -1,16 +1,13 @@
 body {
     margin: 0;
     padding: 0;
-    min-height: auto;
-    background-image: url('images/90573246_p0.jpg');
+    min-height: 100vh;
+    background-image: url('90573246_p0.jpg');
     background-size: cover;
     background-position: center center;
-    background-attachment: fixed;
     background-repeat: no-repeat;
-    
-    /* 模糊效果 */
     position: relative;
-    overflow: hidden;
+    /* 移除 overflow: hidden */
 }
 
 body::before {
@@ -23,15 +20,14 @@ body::before {
     background-image: inherit;
     background-size: cover;
     background-position: center center;
-    background-attachment: fixed;
     filter: blur(8px);
     z-index: -1;
 }
 
-/* 确保内容在模糊背景上清晰显示 */
 .content {
     position: relative;
-    z-index: ;
-    background-color: rgba(168, 168, 168, 0.7); /* 可选：为内容添加半透明背景 */
+    z-index: 1;
     min-height: 100vh;
+    overflow-y: auto; /* 允许内容区域独立滚动 */
+    -webkit-overflow-scrolling: touch; /* 改善移动端滑动体验 */
 }
