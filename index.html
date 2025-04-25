@@ -12,6 +12,7 @@
             position: fixed;
             top: 0;
             left: 0;
+	    filter: blur(10px); /* 默认开启模糊 */
             width: 100%;
             height: 100%;
             z-index: -1;
@@ -141,6 +142,17 @@
     </script>
 </body>
 </html>
+
+
+
+/* 添加性能优化 */
+@media (prefers-reduced-motion: reduce) {
+    #background-container {
+        transition: none;
+    }
+}
+
+
 
 
 <!DOCTYPE html>
