@@ -145,16 +145,58 @@
             }
         });
 
-        // 模糊开关
+        <!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* 修改点1：移除 #background-container 的默认模糊 */
+        #background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* 移除 filter: blur(2px) */
+        }
+
+        /* 修改点2：合并模糊控制逻辑 */
+        #background-container.blur-default {
+            filter: blur(2px);
+            transition: filter 1.5s ease;
+        }
+
+        #background-container.blur-strong {
+            filter: blur(10px);
+            transition: filter 1.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- 原有其他代码保持不变 -->
+
+    <script>
+        // 修改点3：初始化时添加默认模糊
+        document.getElementById('background-container').classList.add('blur-default');
+
+        // 修改点4：更新点击事件逻辑
         document.getElementById('blur-toggle').addEventListener('click', function() {
-            isBlur = !isBlur;
-            this.textContent = isBlur ? '关闭背景模糊' : '开启背景模糊';
-            document.getElementById('background-container').classList.toggle('blur-effect', isBlur);
+            const container = document.getElementById('background-container');
+            const isBlur = container.classList.contains('blur-strong');
+            
+            if (isBlur) {
+                container.classList.remove('blur-strong');
+                container.classList.add('blur-default');
+                this.textContent = '开启背景模糊';
+            } else {
+                container.classList.remove('blur-default');
+                container.classList.add('blur-strong');
+                this.textContent = '关闭背景模糊';
+            }
         });
     </script>
 </body>
 </html>
-
 
 
 
