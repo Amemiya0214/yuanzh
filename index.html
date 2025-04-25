@@ -19,12 +19,12 @@
 
         /* 默认模糊 */
         #background-container.blur-default {
-            filter: blur(2px);
+            filter: blur(3px);
         }
 
         /* 强模糊 */
         #background-container.blur-strong {
-            filter: blur(10px);
+            filter: blur(0px);
         }
 
         .background-image {
@@ -69,13 +69,6 @@
     <div id="background-container" class="blur-default"></div>
     <button id="blur-toggle">关闭背景模糊</button>
     
-    <div class="content">
-        <h1>网页内容标题</h1>
-        <p>这里是网页内容...</p>
-        <p>向下滚动测试...</p>
-        <p>更多内容...</p>
-    </div>
-
     <script>
         const config = {
             landscape: {
