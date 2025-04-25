@@ -1,48 +1,146 @@
 <!DOCTYPE html>
-<html style="height: 100%;">
+<html>
 <head>
     <style>
-        /* 背景容器 */
-        .background {
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #background-container {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             z-index: -1;
         }
 
-        /* 模糊效果 */
-        .background::after {
-            content: "";
+        .background-image {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: inherit;
-            filter: blur(3px) brightness(0.8); /* 模糊+亮度调节 */
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
 
-        /* 原始背景图 */
-        .background {
-            background: url('images/e6346.jpg') center/cover;
+        .background-image.active {
+            opacity: 1;
         }
 
-        /* 内容容器 */
-        .content {
-            position: relative;
-            padding: 10px;
-            color: white;
+        .blur-effect {
+            filter: blur(10px);
+            transition: filter 0.5s ease;
+        }
+
+        #blur-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            z-index: 1000;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="background"></div>
-    <div class="content">
-    </div>
+    <div id="background-container"></div>
+    <button id="blur-toggle">开启模糊</button>
+
+    <script>
+        const config = {
+            landscape: {
+                folder: 'landscape/',
+                images: ['1.jpg', '2.jpg', '3.jpg'] // 替换为你的横屏图片
+            },
+            portrait: {
+                folder: 'portrait/',
+                images: ['1.jpg', '2.jpg', '3.jpg'] // 替换为你的竖屏图片
+            }
+        };
+
+        let currentIndex = 0;
+        let isBlur = false;
+        let currentOrientation = null;
+        let interval = null;
+
+        function getOrientation() {
+            return window.matchMedia("(orientation: portrait)").matches ? 
+                'portrait' : 'landscape';
+        }
+
+        function getCurrentImageSet() {
+            return currentOrientation === 'portrait' ? 
+                config.portrait : config.landscape;
+        }
+
+        function createImageElement(src) {
+            const img = document.createElement('div');
+            img.className = 'background-image';
+            img.style.backgroundImage = `url(${src})`;
+            return img;
+        }
+
+        function switchBackground() {
+            const container = document.getElementById('background-container');
+            const images = container.getElementsByClassName('background-image');
+            const imageSet = getCurrentImageSet();
+            
+            currentIndex = (currentIndex + 1) % imageSet.images.length;
+            const newImage = createImageElement(imageSet.folder + imageSet.images[currentIndex]);
+            
+            container.appendChild(newImage);
+            setTimeout(() => {
+                images[0].classList.remove('active');
+                newImage.classList.add('active');
+            }, 100);
+
+            setTimeout(() => images[0].remove(), 1200);
+        }
+
+        function initBackground() {
+            currentOrientation = getOrientation();
+            const imageSet = getCurrentImageSet();
+            const container = document.getElementById('background-container');
+            
+            container.innerHTML = '';
+            const initialImage = createImageElement(imageSet.folder + imageSet.images[currentIndex]);
+            initialImage.classList.add('active');
+            container.appendChild(initialImage);
+
+            if (interval) clearInterval(interval);
+            interval = setInterval(switchBackground, 6000);
+        }
+
+        // 初始化
+        initBackground();
+
+        // 方向变化监听
+        window.addEventListener('resize', () => {
+            const newOrientation = getOrientation();
+            if (newOrientation !== currentOrientation) {
+                currentIndex = 0;
+                initBackground();
+            }
+        });
+
+        // 模糊开关
+        document.getElementById('blur-toggle').addEventListener('click', function() {
+            isBlur = !isBlur;
+            this.textContent = isBlur ? '关闭背景模糊' : '开启背景模糊';
+            document.getElementById('background-container').classList.toggle('blur-effect', isBlur);
+        });
+    </script>
 </body>
 </html>
-
-
 
 
 <!DOCTYPE html>
