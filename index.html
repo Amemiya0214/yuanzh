@@ -4,18 +4,27 @@
     <style>
         body {
             margin: 0;
-            min-height: 100vh; /* 改为min-height而不是height */
-            /* 移除 overflow: hidden 以允许滚动 */
+            min-height: 100vh;
         }
 
         #background-container {
             position: fixed;
             top: 0;
             left: 0;
-            filter: blur(2px); /* 默认开启模糊 */
             width: 100%;
             height: 100%;
             z-index: -1;
+            transition: filter 1.5s ease;
+        }
+
+        /* 默认模糊 */
+        #background-container.blur-default {
+            filter: blur(2px);
+        }
+
+        /* 强模糊 */
+        #background-container.blur-strong {
+            filter: blur(10px);
         }
 
         .background-image {
@@ -34,11 +43,6 @@
             opacity: 1;
         }
 
-        .blur-effect {
-            filter: blur(10px);
-            transition: filter 1.5s ease;
-        }
-
         #blur-toggle {
             position: fixed;
             top: 20px;
@@ -50,23 +54,27 @@
             border: none;
             border-radius: 5px;
         }
-        
-        /* 添加内容区域样式 */
+
         .content {
             position: relative;
             z-index: 1;
             padding: 20px;
             color: white;
             text-shadow: 0 0 5px rgba(0,0,0,0.5);
-            height: 200vh; /* 只是为了演示滚动效果 */
+            height: 200vh;
         }
     </style>
 </head>
 <body>
-    <div id="background-container"></div>
-    <button id="blur-toggle">背景模糊</button>
+    <div id="background-container" class="blur-default"></div>
+    <button id="blur-toggle">关闭背景模糊</button>
     
-
+    <div class="content">
+        <h1>网页内容标题</h1>
+        <p>这里是网页内容...</p>
+        <p>向下滚动测试...</p>
+        <p>更多内容...</p>
+    </div>
 
     <script>
         const config = {
@@ -81,18 +89,33 @@
         };
 
         let currentIndex = 0;
-        let isBlur = false;
         let currentOrientation = null;
         let interval = null;
 
+        // 初始化背景
+        function initBackground() {
+            currentOrientation = getOrientation();
+            const imageSet = getCurrentImageSet();
+            const container = document.getElementById('background-container');
+            
+            // 清除旧背景
+            container.innerHTML = '';
+            
+            // 创建初始背景
+            const initialImage = createImageElement(imageSet.folder + imageSet.images[currentIndex]);
+            initialImage.classList.add('active');
+            container.appendChild(initialImage);
+
+            // 启动轮播
+            startCarousel();
+        }
+
         function getOrientation() {
-            return window.matchMedia("(orientation: portrait)").matches ? 
-                'portrait' : 'landscape';
+            return window.matchMedia("(orientation: portrait)").matches ? 'portrait' : 'landscape';
         }
 
         function getCurrentImageSet() {
-            return currentOrientation === 'portrait' ? 
-                config.portrait : config.landscape;
+            return currentOrientation === 'portrait' ? config.portrait : config.landscape;
         }
 
         function createImageElement(src) {
@@ -119,80 +142,39 @@
             setTimeout(() => images[0].remove(), 1200);
         }
 
-        function initBackground() {
-            currentOrientation = getOrientation();
-            const imageSet = getCurrentImageSet();
-            const container = document.getElementById('background-container');
-            
-            container.innerHTML = '';
-            const initialImage = createImageElement(imageSet.folder + imageSet.images[currentIndex]);
-            initialImage.classList.add('active');
-            container.appendChild(initialImage);
-
+        function startCarousel() {
             if (interval) clearInterval(interval);
             interval = setInterval(switchBackground, 6000);
         }
 
         // 初始化
-        initBackground();
-
-        // 方向变化监听
-        window.addEventListener('resize', () => {
-            const newOrientation = getOrientation();
-            if (newOrientation !== currentOrientation) {
-                currentIndex = 0;
-                initBackground();
-            }
-        });
-
-        <!DOCTYPE html>
-<html>
-<head>
-    <style>
-        /* 修改点1：移除 #background-container 的默认模糊 */
-        #background-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            /* 移除 filter: blur(2px) */
-        }
-
-        /* 修改点2：合并模糊控制逻辑 */
-        #background-container.blur-default {
-            filter: blur(2px);
-            transition: filter 1.5s ease;
-        }
-
-        #background-container.blur-strong {
-            filter: blur(10px);
-            transition: filter 1.5s ease;
-        }
-    </style>
-</head>
-<body>
-    <!-- 原有其他代码保持不变 -->
-
-    <script>
-        // 修改点3：初始化时添加默认模糊
-        document.getElementById('background-container').classList.add('blur-default');
-
-        // 修改点4：更新点击事件逻辑
-        document.getElementById('blur-toggle').addEventListener('click', function() {
-            const container = document.getElementById('background-container');
-            const isBlur = container.classList.contains('blur-strong');
+        document.addEventListener('DOMContentLoaded', () => {
+            initBackground();
             
-            if (isBlur) {
-                container.classList.remove('blur-strong');
-                container.classList.add('blur-default');
-                this.textContent = '开启背景模糊';
-            } else {
-                container.classList.remove('blur-default');
-                container.classList.add('blur-strong');
-                this.textContent = '关闭背景模糊';
-            }
+            // 方向变化监听
+            window.addEventListener('resize', () => {
+                const newOrientation = getOrientation();
+                if (newOrientation !== currentOrientation) {
+                    currentIndex = 0;
+                    initBackground();
+                }
+            });
+
+            // 模糊开关
+            document.getElementById('blur-toggle').addEventListener('click', function() {
+                const container = document.getElementById('background-container');
+                const isStrongBlur = container.classList.contains('blur-strong');
+                
+                if (isStrongBlur) {
+                    container.classList.remove('blur-strong');
+                    container.classList.add('blur-default');
+                    this.textContent = '关闭背景模糊';
+                } else {
+                    container.classList.remove('blur-default');
+                    container.classList.add('blur-strong');
+                    this.textContent = '开启背景模糊';
+                }
+            });
         });
     </script>
 </body>
