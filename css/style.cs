@@ -36,3 +36,10 @@ body::before {
     min-height: 100vh;
 }
 
+
+
+
+backdrop-filter: url(#filter) blur(0.25px) 
+  contrast(1.2) brightness(1.05) saturate(1.1);
+box-shadow: 0 4px 8px rgba(0,0,0,0.25), 
+  0 -10px 25px inset rgba(0,0,0,0.15);
