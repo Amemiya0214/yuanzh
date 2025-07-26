@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Page - 液态玻璃效果</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #9b59b6;
+            --background-light: #f5f7fa;
+            --background-dark: #1a1a2e;
+            --text-light: #333;
+            --text-dark: #f0f0f0;
+            --card-bg-light: rgba(255, 255, 255, 0.85);
+            --card-bg-dark: rgba(30, 30, 50, 0.85);
+            --glass-bg-light: rgba(255, 255, 255, 0.6);
+            --glass-bg-dark: rgba(30, 30, 50, 0.6);
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-dark: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.5s ease;
+            color: var(--text-light);
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--card-bg-light);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--shadow-light);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+
+        .dark-mode .card {
+            background: var(--card-bg-dark);
+            box-shadow: 0 10px 30px var(--shadow-dark);
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 i {
+            font-size: 1.5rem;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .project-card {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .project-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .project-card .stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .project-card .stats span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn i {
+            font-size: 0.9rem;
+        }
+
+        .control-panel {
+            position: sticky;
+            top: 30px;
+        }
+
+        .control-group {
+            margin-bottom: 25px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(0,0,0,0.1);
+            outline: none;
+        }
+
+        .dark-mode .slider-container input[type="range"] {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .slider-container .value {
+            min-width: 40px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .theme-toggle {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .theme-toggle-btn {
+            background: rgba(0,0,0,0.1);
+            border: none;
+            width: 60px;
+            height: 30px;
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+
+        .dark-mode .theme-toggle-btn {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .theme-toggle-btn::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: white;
+            transition: transform 0.3s ease;
+        }
+
+        .dark-mode .theme-toggle-btn::after {
+            transform: translateX(30px);
+            background: #333;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Liquid Glass Container */
+        #liquid-glass-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 
+                        inset 0 -10px 25px rgba(0, 0, 0, 0.1);
+            cursor: grab;
+            backdrop-filter: url(#liquid-glass-filter) blur(0.25px) contrast(1.2) brightness(1.05) saturate(1.1);
+            z-index: 1000;
+            pointer-events: auto;
+            background: var(--glass-bg-light);
+        }
+
+        .dark-mode #liquid-glass-container {
+            background: var(--glass-bg-dark);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 
+                        inset 0 -10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        #liquid-glass-container.grabbing {
+            cursor: grabbing;
+        }
+
+        /* Responsive design */
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .control-panel {
+                position: static;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            #liquid-glass-container {
+                width: 250px;
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-vial"></i> GitHub Page 液态玻璃效果</h1>
+            <p class="subtitle">这个页面展示了可在GitHub Page上使用的液态玻璃效果，您可以拖拽玻璃面板体验交互效果</p>
+        </header>
+        
+        <div class="content-grid">
+            <div class="main-content">
+                <div class="card">
+                    <h2><i class="fas fa-info-circle"></i> 效果说明</h2>
+                    <p>这个液态玻璃效果使用纯JavaScript和SVG滤镜实现，模拟了水滴在玻璃表面流动的视觉效果。</p>
+                    <p>特点：</p>
+                    <ul>
+                        <li>完全使用原生JavaScript实现，无外部依赖</li>
+                        <li>可拖拽交互体验</li>
+                        <li>响应式设计，适配不同设备</li>
+                        <li>支持深色/浅色模式</li>
+                        <li>可自定义参数调整效果</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fab fa-github"></i> GitHub 项目示例</h2>
+                    
+                    <div class="project-card">
+                        <h3><i class="fas fa-star"></i> Liquid Glass Effect</h3>
+                        <p>一个轻量级的JavaScript库，用于创建液态玻璃效果，适用于各种网站和应用程序。</p>
+                        <div class="stats">
+                            <span><i class="fas fa-star"></i> 1.2k</span>
+                            <span><i class="fas fa-code-branch"></i> 340</span>
+                            <span><i class="fas fa-eye"></i> 25k</span>
+                        </div>
+                        <button class="btn"><i class="fas fa-external-link-alt"></i> 查看项目</button>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h3><i class="fas fa-paint-brush"></i> Interactive UI Elements</h3>
+                        <p>一组使用现代CSS和JavaScript创建的交互式UI组件，包括按钮、卡片和动画效果。</p>
+                        <div class="stats">
+                            <span><i class="fas fa-star"></i> 850</span>
+                            <span><i class="fas fa-code-branch"></i> 210</span>
+                            <span><i class="fas fa-eye"></i> 18k</span>
+                        </div>
+                        <button class="btn"><i class="fas fa-external-link-alt"></i> 查看项目</button>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h3><i class="fas fa-mobile-alt"></i> Responsive Design Framework</h3>
+                        <p>轻量级响应式设计框架，帮助开发者快速构建适配各种设备的网站。</p>
+                        <div class="stats">
+                            <span><i class="fas fa-star"></i> 2.3k</span>
+                            <span><i class="fas fa-code-branch"></i> 780</span>
+                            <span><i class="fas fa-eye"></i> 42k</span>
+                        </div>
+                        <button class="btn"><i class="fas fa-external-link-alt"></i> 查看项目</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="control-panel">
+                <div class="card">
+                    <h2><i class="fas fa-sliders-h"></i> 控制面板</h2>
+                    
+                    <div class="control-group">
+                        <label>模糊强度 <span id="blur-value">0.25px</span></label>
+                        <div class="slider-container">
+                            <input type="range" id="blur-slider" min="0.1" max="1" step="0.05" value="0.25">
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>对比度 <span id="contrast-value">1.2</span></label>
+                        <div class="slider-container">
+                            <input type="range" id="contrast-slider" min="1" max="2" step="0.1" value="1.2">
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>亮度 <span id="brightness-value">1.05</span></label>
+                        <div class="slider-container">
+                            <input type="range" id="brightness-slider" min="0.8" max="1.5" step="0.05" value="1.05">
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>饱和度 <span id="saturation-value">1.1</span></label>
+                        <div class="slider-container">
+                            <input type="range" id="saturation-slider" min="0.5" max="2" step="0.1" value="1.1">
+                        </div>
+                    </div>
+                    
+                    <div class="theme-toggle">
+                        <button class="theme-toggle-btn" id="theme-toggle"></button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2><i class="fas fa-download"></i> 使用说明</h2>
+                    <p>要在GitHub Page上使用此效果：</p>
+                    <ol>
+                        <li>将JavaScript代码添加到您的HTML文件中</li>
+                        <li>添加必要的CSS样式</li>
+                        <li>在页面中创建一个容器元素</li>
+                        <li>初始化液态玻璃效果</li>
+                    </ol>
+                    <button class="btn" style="background: var(--accent-color); margin-top: 15px;">
+                        <i class="fas fa-download"></i> 下载代码
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>液态玻璃效果 &copy; 2025 | 由Shu Ding创建 | 在GitHub Page上集成</p>
+        </div>
+    </div>
+
+    <!-- Liquid Glass Container -->
+    <div id="liquid-glass-container"></div>
+    
+    <!-- Hidden SVG for filter -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:fixed;top:0;left:0;pointer-events:none;z-index:9998;">
+        <defs>
+            <filter id="liquid-glass-filter" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB" x="0" y="0" width="300" height="200">
+                <feImage id="liquid-glass-map" width="300" height="200" />
+                <feDisplacementMap in="SourceGraphic" in2="liquid-glass-map" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+        </defs>
+    </svg>
+
+    <script>
+        // Liquid Glass Effect Implementation
+        (function() {
+            'use strict';
+            
+            // Utility functions
+            function smoothStep(a, b, t) {
+                t = Math.max(0, Math.min(1, (t - a) / (b - a)));
+                return t * t * (3 - 2 * t);
+            }
+
+            function length(x, y) {
+                return Math.sqrt(x * x + y * y);
+            }
+
+            function roundedRectSDF(x, y, width, height, radius) {
+                const qx = Math.abs(x) - width + radius;
+                const qy = Math.abs(y) - height + radius;
+                return Math.min(Math.max(qx, qy), 0) + length(Math.max(qx, 0), Math.max(qy, 0)) - radius;
+            }
+
+            function texture(x, y) {
+                return { type: 't', x, y };
+            }
+            
+            // Main Shader class
+            class Shader {
+                constructor(options = {}) {
+                    this.width = options.width || 300;
+                    this.height = options.height || 200;
+                    this.fragment = options.fragment || ((uv) => texture(uv.x, uv.y));
+                    this.canvasDPI = 1;
+                    this.offset = 10;
+                    
+                    this.mouse = { x: 0, y: 0 };
+                    this.mouseUsed = false;
+                    
+                    this.createElement();
+                    this.setupEventListeners();
+                    this.updateShader();
+                    
+                    // Animation loop
+                    this.animate();
+                }
+
+                createElement() {
+                    // Create container
+                    this.container = document.getElementById('liquid-glass-container');
+                    
+                    // Create canvas for displacement map (hidden)
+                    this.canvas = document.createElement('canvas');
+                    this.canvas.width = this.width * this.canvasDPI;
+                    this.canvas.height = this.height * this.canvasDPI;
+                    this.canvas.style.display = 'none';
+
+                    this.context = this.canvas.getContext('2d');
+                    
+                    // Get SVG filter elements
+                    this.feImage = document.getElementById('liquid-glass-map');
+                    this.feDisplacementMap = document.querySelector('feDisplacementMap');
+                }
+
+                constrainPosition(x, y) {
+                    const viewportWidth = window.innerWidth;
+                    const viewportHeight = window.innerHeight;
+                    
+                    // Calculate boundaries with offset
+                    const minX = this.offset;
+                    const maxX = viewportWidth - this.width - this.offset;
+                    const minY = this.offset;
+                    const maxY = viewportHeight - this.height - this.offset;
+                    
+                    // Constrain position
+                    const constrainedX = Math.max(minX, Math.min(maxX, x));
+                    const constrainedY = Math.max(minY, Math.min(maxY, y));
+                    
+                    return { x: constrainedX, y: constrainedY };
+                }
+
+                setupEventListeners() {
+                    let isDragging = false;
+                    let startX, startY, initialX, initialY;
+
+                    this.container.addEventListener('mousedown', (e) => {
+                        isDragging = true;
+                        this.container.classList.add('grabbing');
+                        startX = e.clientX;
+                        startY = e.clientY;
+                        const rect = this.container.getBoundingClientRect();
+                        initialX = rect.left;
+                        initialY = rect.top;
+                        e.preventDefault();
+                    });
+
+                    document.addEventListener('mousemove', (e) => {
+                        if (isDragging) {
+                            const deltaX = e.clientX - startX;
+                            const deltaY = e.clientY - startY;
+                            
+                            // Calculate new position
+                            const newX = initialX + deltaX;
+                            const newY = initialY + deltaY;
+                            
+                            // Constrain position within viewport bounds
+                            const constrained = this.constrainPosition(newX, newY);
+                            
+                            this.container.style.left = constrained.x + 'px';
+                            this.container.style.top = constrained.y + 'px';
+                            this.container.style.transform = 'none';
+                        }
+
+                        // Update mouse position for shader
+                        const rect = this.container.getBoundingClientRect();
+                        this.mouse.x = (e.clientX - rect.left) / rect.width;
+                        this.mouse.y = (e.clientY - rect.top) / rect.height;
+                        
+                        if (this.mouseUsed) {
+                            this.updateShader();
+                        }
+                    });
+
+                    document.addEventListener('mouseup', () => {
+                        isDragging = false;
+                        this.container.classList.remove('grabbing');
+                    });
+
+                    // Handle window resize to maintain constraints
+                    window.addEventListener('resize', () => {
+                        const rect = this.container.getBoundingClientRect();
+                        const constrained = this.constrainPosition(rect.left, rect.top);
+                        
+                        if (rect.left !== constrained.x || rect.top !== constrained.y) {
+                            this.container.style.left = constrained.x + 'px';
+                            this.container.style.top = constrained.y + 'px';
+                            this.container.style.transform = 'none';
+                        }
+                    });
+                }
+
+                updateShader() {
+                    const mouseProxy = new Proxy(this.mouse, {
+                        get: (target, prop) => {
+                            this.mouseUsed = true;
+                            return target[prop];
+                        }
+                    });
+
+                    this.mouseUsed = false;
+
+                    const w = this.width * this.canvasDPI;
+                    const h = this.height * this.canvasDPI;
+                    const data = new Uint8ClampedArray(w * h * 4);
+
+                    let maxScale = 0;
+                    const rawValues = [];
+
+                    for (let i = 0; i < data.length; i += 4) {
+                        const x = (i / 4) % w;
+                        const y = Math.floor(i / 4 / w);
+                        const pos = this.fragment(
+                            { x: x / w, y: y / h },
+                            mouseProxy
+                        );
+                        const dx = pos.x * w - x;
+                        const dy = pos.y * h - y;
+                        maxScale = Math.max(maxScale, Math.abs(dx), Math.abs(dy));
+                        rawValues.push(dx, dy);
+                    }
+
+                    maxScale *= 0.5;
+
+                    let index = 0;
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = rawValues[index++] / maxScale + 0.5;
+                        const g = rawValues[index++] / maxScale + 0.5;
+                        data[i] = r * 255;
+                        data[i + 1] = g * 255;
+                        data[i + 2] = 0;
+                        data[i + 3] = 255;
+                    }
+
+                    this.context.putImageData(new ImageData(data, w, h), 0, 0);
+                    
+                    // Update SVG filter
+                    if (this.feImage) {
+                        this.feImage.setAttributeNS('http://www.w3.org/1999/xlink', 'href', this.canvas.toDataURL());
+                    }
+                    if (this.feDisplacementMap) {
+                        this.feDisplacementMap.setAttribute('scale', (maxScale / this.canvasDPI).toString());
+                    }
+                }
+                
+                animate() {
+                    this.updateShader();
+                    requestAnimationFrame(() => this.animate());
+                }
+            }
+
+            // Create the liquid glass effect
+            function createLiquidGlass() {
+                // Create shader
+                const shader = new Shader({
+                    fragment: (uv, mouse) => {
+                        const ix = uv.x - 0.5;
+                        const iy = uv.y - 0.5;
+                        const distanceToEdge = roundedRectSDF(
+                            ix,
+                            iy,
+                            0.3,
+                            0.2,
+                            0.6
+                        );
+                        const displacement = smoothStep(0.8, 0, distanceToEdge - 0.15);
+                        const scaled = smoothStep(0, 1, displacement);
+                        return texture(ix * scaled + 0.5, iy * scaled + 0.5);
+                    }
+                });
+                
+                // Return shader instance so it can be removed if needed
+                window.liquidGlass = shader;
+            }
+
+            // Initialize
+            createLiquidGlass();
+            
+            // Theme toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+            });
+            
+            // Update filter values when sliders change
+            const blurSlider = document.getElementById('blur-slider');
+            const contrastSlider = document.getElementById('contrast-slider');
+            const brightnessSlider = document.getElementById('brightness-slider');
+            const saturationSlider = document.getElementById('saturation-slider');
+            
+            const blurValue = document.getElementById('blur-value');
+            const contrastValue = document.getElementById('contrast-value');
+            const brightnessValue = document.getElementById('brightness-value');
+            const saturationValue = document.getElementById('saturation-value');
+            
+            function updateFilter() {
+                const blur = blurSlider.value;
+                const contrast = contrastSlider.value;
+                const brightness = brightnessSlider.value;
+                const saturation = saturationSlider.value;
+                
+                blurValue.textContent = blur + 'px';
+                contrastValue.textContent = contrast;
+                brightnessValue.textContent = brightness;
+                saturationValue.textContent = saturation;
+                
+                const glass = document.getElementById('liquid-glass-container');
+                glass.style.backdropFilter = `url(#liquid-glass-filter) blur(${blur}px) contrast(${contrast}) brightness(${brightness}) saturate(${saturation})`;
+            }
+            
+            blurSlider.addEventListener('input', updateFilter);
+            contrastSlider.addEventListener('input', updateFilter);
+            brightnessSlider.addEventListener('input', updateFilter);
+            saturationSlider.addEventListener('input', updateFilter);
+            
+            // Set initial position to center
+            const glass = document.getElementById('liquid-glass-container');
+            glass.style.left = '50%';
+            glass.style.top = '50%';
+        })();
+    </script>
+</body>
+</html>
