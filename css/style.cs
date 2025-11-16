@@ -32,7 +32,7 @@ body::before {
 .content {
     position: relative;
     z-index: 1;
-    background-color: rgba(168, 168, 168, 0.7); /* 可选：为内容添加半透明背景 */
+    background-color: rgba(120, 120, 120, 0.7); /* 可选：为内容添加半透明背景 */
     min-height: 100vh;
 }
 
